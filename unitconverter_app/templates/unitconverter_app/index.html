@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Unit Converter</title>
+        <!-- {% load static %} -->
+        <link href="{% static 'unitconverter_app/style.css' %}" rel="stylesheet">
+        <!-- <link href="../../statics/unitconverter_app/style.css" rel="stylesheet"> -->
+        <!-- <s href="{% static 'unitconverter_app/style.css' %}" rel="stylesheet"> -->
+    </head>
+    <body>
+        <div class="tabs">
+            <!-- tablist is aria role that acts as a container for tab role elements. -->
+            <div role="tablist">
+                <button role="tab"
+                        aria-selected="true"
+                        aria-controls="tab-panel-len"
+                        id="tab-len">Length</button>
+                <button role="tab"
+                        aria-selected="false"
+                        aria-controls="tab-panel-temp"
+                        id="tab-temp">Temperature</button>
+                <button role="tab"
+                        aria-selected="false"
+                        aria-controls="tab-panel-weight"
+                        id="tab-weight">Weight</button>
+                <button role="tab"
+                        aria-selected="false"
+                        aria-controls="tab-panel-speed"
+                        id="tab-speed">Speed</button>
+                <button role="tab"
+                        aria-selected="false"
+                        aria-controls="tab-panel-time"
+                        id="tab-time">Time</button>
+            </div>
+            <div role="tabpanel" aria-labelledby="tab-len" id="tab-panel-len">
+                <form action="{% url 'unitconverter:result' %}" class="form" method="get">
+                    <div class="field">
+                        <label for="len-num-input">Enter a number:</label>
+                        <input type="number" name="input-num" id="len-num-input">
+                    </div>
+                    <div class="field">
+                        <label for="len-convert-from-list">Select a unit to convert from:</label>
+                        <select name="convert-from" id="len-convert-from-list">
+                            <option value="None">None</option>
+                            <option value="m">Meters</option>
+                            <option value="km">KiloMeters</option>
+                            <option value="cm">CentiMeters</option>
+                            <option value="inch">Inches</option>
+                            <option value="feet">Feets</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="len-convert-to-list">Select a unit to convert to:</label>
+                        <select name="convert-to" id="len-convert-to-list">
+                            <option value="None">None</option>
+                            <option value="m">Meters</option>
+                            <option value="km">KiloMeters</option>
+                            <option value="cm">CentiMeters</option>
+                            <option value="inch">Inches</option>
+                            <option value="feet">Feets</option>
+                        </select>
+                    </div>
+                    <button class="submit-button" type="submit" name="length" value="True">Submit</button>
+                </form>
+            </div>
+            <div role="tabpanel" aria-labelledby="tab-temp" id="tab-panel-temp" hidden>temperature content</div>
+            <div role="tabpanel"
+                 aria-labelledby="tab-weight"
+                 id="tab-panel-weight"
+                 hidden>weight content</div>
+            <div role="tabpanel"
+                 aria-labelledby="tab-speed"
+                 id="tab-panel-speed"
+                 hidden>speed content</div>
+            <div role="tabpanel" aria-labelledby="tab-time" id="tab-panel-time" hidden>time content</div>
+        </div>
+        <script src="{% static 'unitconverter_app/tabs.js' %}"></script>
+    </body>
+</html>
