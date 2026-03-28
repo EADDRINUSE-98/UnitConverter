@@ -7,12 +7,10 @@ from .logic.converter import convert
 
 
 def index(request):
-    # context = {"result-flag": False}
     return render(request, "unitconverter_app/index.html")
 
 
 def result(request):
-    # return HttpResponse(request.GET.get("input-num"))
     try:
         context = {
             "from_unit": request.GET.get("convert-from"),
@@ -29,4 +27,3 @@ def result(request):
         return HttpResponse(e)
     else:
         return render(request, "unitconverter_app/result.html", context)
-        # return HttpResponse(converted_value)

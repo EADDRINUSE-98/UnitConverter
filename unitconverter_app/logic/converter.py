@@ -1,6 +1,3 @@
-from decimal import Decimal, getcontext
-
-getcontext().prec = 4
 """
 from_unit -> base_unit
 base_unit -> to_unit
@@ -43,7 +40,6 @@ def __feet_to_base(input_num):
 """
 
 
-# For Length
 def __base_to_meter(value_in_base):
     return value_in_base, [f"= ({value_in_base} * 1)m"]
 
@@ -76,6 +72,75 @@ def __base_to_feet(value_in_base):
     ]
 
 
+# For Temperature
+
+
+def __kelvin_to_base(input_num):
+    return input_num, [f"= {input_num}°k"]
+
+
+def __celsius_to_base(input_num):
+    return input_num + 273.15, [f"= {input_num}°c", f"= ({input_num} + 273.15)°k"]
+
+
+def __fahrenheit_to_base(input_num):
+    return input_num * 255.928, [
+        f"= {input_num}°f",
+        f"= (({input_num} - 32) * (5/9) + 273.15)°k",
+    ]
+
+def __base_to_kelvin(value_in_base):
+    return value_in_base, [f"= ({value_in_base} * 1)°k"]
+
+def __base_to_celsius(value_in_base):
+    return value_in_base - 273.15, [f"= ({value_in_base} * 1)°k", f"= ({value_in_base} - 273.15)°c"]
+
+def __base_to_fahrenheit(value_in_base):
+    return value_in_base / 255.928, [f"= ({value_in_base} * 1)°k", f"= (({value_in_base} + 32) * (9/5) - 273.15)°f"]
+
+
+# For Weight
+
+def __gram_to_base(input_num):
+    return input_num, [f"= {input_num}g"]
+
+
+def __kilogram_to_base(input_num):
+    return input_num * 1000, [f"= {input_num}kg", [f"= ({input_num} * 1000)g"]]
+
+
+def __miligram_to_base(input_num):
+    return input_num / 1000, [f"= {input_num}mg", f"= ({input_num} / 1000)g"]
+
+
+def __pound_to_base(input_num):
+    return input_num * 453.592, [f"= {input_num}lb", f"= ({input_num} * 453.592)g"]
+
+
+def __ounce_to_base(input_num):
+    return input_num * 28.3495, [f"= {input_num}oz", f"= ({input_num} * 28.3495)g"]
+
+
+def __base_to_gram(value_in_base):
+    return value_in_base, [f"= ({value_in_base} * 1)g"]
+
+
+def __base_to_kilogram(value_in_base):
+    return value_in_base / 1000, [f"= ({value_in_base} * 1)g", [f"= ({value_in_base} / 1000)kg"]]
+
+
+def __base_to_miligram(value_in_base):
+    return value_in_base * 1000, [f"= ({value_in_base} * 1)g", f"= ({value_in_base} * 1000)mg"]
+
+
+def __base_to_pound(value_in_base):
+    return value_in_base / 453.592, [f"= ({value_in_base} * 1)g", f"= ({value_in_base} / 453.592)lb"]
+
+
+def __base_to_ounce(value_in_base):
+    return value_in_base / 28.3495, [f"= ({value_in_base} * 1)g", f"= ({value_in_base} / 28.3495)oz"]
+
+
 """
 Mapping section
 """
@@ -89,7 +154,15 @@ conversion_mapping_config = {
         "inch": __inch_to_base,
         "feet": __feet_to_base,
         # Temperature conversion mapping
+        "kelvin": __kelvin_to_base,
+        "celcius": __celsius_to_base,
+        "fahrenheit": __fahrenheit_to_base,
         # Weight conversion mapping
+        "g": __gram_to_base,
+        "kg": __kilogram_to_base,
+        "mg": __miligram_to_base,
+        "lb": __pound_to_base,#pound
+        "oz": __ounce_to_base,#ounce
         # Speed conversion mapping
         # Time conversion mappping
     },
@@ -101,7 +174,15 @@ conversion_mapping_config = {
         "inch": __base_to_inche,
         "feet": __base_to_feet,
         # Temperature conversion mapping
+        "kelvin": __base_to_kelvin,
+        "celcius": __base_to_celsius,
+        "fahrenheit": __base_to_fahrenheit,
         # Weight conversion mapping
+        "g": __base_to_gram,
+        "kg": __base_to_kilogram,
+        "mg": __base_to_miligram,
+        "lb": __base_to_pound,#pound
+        "oz": __base_to_ounce,#ounce
         # Speed conversion mapping
         # Time conversion mappping
     },
