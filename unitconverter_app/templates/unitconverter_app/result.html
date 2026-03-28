@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Results</title>
+        {% load static %}
+        <link href="{% static "unitconverter_app/result_style.css" %}"
+              rel="stylesheet">
+    </head>
+    <body>
+        <div id="result-section">
+            <h1>Result:</h1>
+            <div id="result-snippet">
+                <code>{{ input_num }} {{ from_unit }} = {{ converted_value }} {{ to_unit }}</code>
+            </div>
+            <h1>Steps of conversion:</h1>
+            <div id="solution-snippet">
+                <code id="steps-code">
+                    {% for step in steps_of_conversion %}
+                        {{ step }}
+                        <br>
+                    {% endfor %}
+                    {{ input_num }} {{ from_unit }} = {{ converted_value }} {{ to_unit }}
+                </code>
+            </div>
+        </div>
+    </body>
+</html>

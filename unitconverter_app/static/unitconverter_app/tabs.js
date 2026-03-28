@@ -13,8 +13,8 @@ const setActiveTab = (index) => {
   tabElements[index].setAttribute("aria-selected", "true");
   setActivePanel(index);
   activeIndex = index;
-}
+};
 const setActivePanel = (index) => {
   panelElements[activeIndex].setAttribute("hidden", "");
   panelElements[index].removeAttribute("hidden");
-}
+};

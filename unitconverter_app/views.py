@@ -13,18 +13,20 @@ def index(request):
 
 def result(request):
     # return HttpResponse(request.GET.get("input-num"))
-    # try:
-    context = {
-        "from-unit": request.GET.get("convert-from"),
-        "to-unit": request.GET.get("convert-to"),
-        "input-num": request.GET.get("input-num"),
-    }
-    converted_value = convert(
-        context["from-unit"], context["to-unit"], context["input-num"]
-    )
+    try:
+        context = {
+            "from_unit": request.GET.get("convert-from"),
+            "to_unit": request.GET.get("convert-to"),
+            "input_num": request.GET.get("input-num"),
+        }
+        converted_value, steps_of_conversion = convert(
+            context["from_unit"], context["to_unit"], context["input_num"]
+        )
+        context["converted_value"] = converted_value
+        context["steps_of_conversion"] = steps_of_conversion
 
-    # except Exception as e:
-    #     return HttpResponse(e)
-    # else:
-    # return render(request, "unitconverter_app/result.html", context)
-    return HttpResponse(converted_value)
+    except Exception as e:
+        return HttpResponse(e)
+    else:
+        return render(request, "unitconverter_app/result.html", context)
+        # return HttpResponse(converted_value)
