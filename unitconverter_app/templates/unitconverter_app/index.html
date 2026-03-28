@@ -65,10 +65,39 @@
                             <option value="feet">Feets</option>
                         </select>
                     </div>
-                    <button class="submit-button" type="submit" name="length" value="True">Submit</button>
+                    <button class="submit-button" type="submit">Submit</button>
                 </form>
             </div>
-            <div role="tabpanel" aria-labelledby="tab-temp" id="tab-panel-temp" hidden>temperature content</div>
+            <div role="tabpanel" aria-labelledby="tab-temp" id="tab-panel-temp" hidden>
+                <form action="{% url 'unitconverter:result' %}"
+                      class="form"
+                      method="get"
+                      autocomplete="off">
+                    <div class="field">
+                        <label for="temp-num-input">Enter a number:</label>
+                        <input type="number" name="input-num" id="temp-num-input">
+                    </div>
+                    <div class="field">
+                        <label for="temp-convert-from-list">Select a unit to convert from:</label>
+                        <select name="convert-from" id="temp-convert-from-list">
+                            <option value="None">None</option>
+                            <option value="k">Kelvin</option>
+                            <option value="c">Celsius</option>
+                            <option value="f">Fahrenheit</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="temp-convert-to-list">Select a unit to convert to:</label>
+                        <select name="convert-to" id="temp-convert-to-list">
+                            <option value="None">None</option>
+                            <option value="k">Kelvin</option>
+                            <option value="c">Celsius</option>
+                            <option value="f">Fahrenheit</option>
+                        </select>
+                    </div>
+                    <button class="submit-button" type="submit">Submit</button>
+                </form>
+            </div>
             <div role="tabpanel"
                  aria-labelledby="tab-weight"
                  id="tab-panel-weight"

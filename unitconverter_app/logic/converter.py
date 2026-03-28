@@ -141,6 +141,33 @@ def __base_to_ounce(value_in_base):
     return value_in_base / 28.3495, [f"= ({value_in_base} * 1)g", f"= ({value_in_base} / 28.3495)oz"]
 
 
+# For Time
+def __second_to_base(input_num):
+    return input_num, [f"= {input_num}s"]
+
+def __minute_to_base(input_num):
+    return input_num * 60, [f"= {input_num}min", f"= ({input_num} * 60)s"]
+
+def __hour_to_base(input_num):
+    return input_num * 3600, [f"= {input_num}hr", f"= ({input_num} * 3600)s"]
+
+def __day_to_base(input_num):
+    return input_num * 86400, [f"= {input_num}day", f"= ({input_num} * 86400)s"]
+
+
+def __base_to_second(value_in_base):
+    return value_in_base, [f"= ({value_in_base} * 1)s"]
+
+def __base_to_minute(value_in_base):
+    return value_in_base / 60, [f"= ({value_in_base} * 1)s", f"= ({value_in_base} / 60)min"]
+
+def __base_to_hour(value_in_base):
+    return value_in_base / 3600, [f"= ({value_in_base} * 1)s", f"= ({value_in_base} / 3600)hr"]
+
+def __base_to_day(value_in_base):
+    return value_in_base / 86400, [f"= ({value_in_base} * 1)s", f"= ({value_in_base} / 86400)day"]
+
+
 """
 Mapping section
 """
@@ -154,17 +181,21 @@ conversion_mapping_config = {
         "inch": __inch_to_base,
         "feet": __feet_to_base,
         # Temperature conversion mapping
-        "kelvin": __kelvin_to_base,
-        "celcius": __celsius_to_base,
-        "fahrenheit": __fahrenheit_to_base,
+        "k": __kelvin_to_base,
+        "c": __celsius_to_base,
+        "f": __fahrenheit_to_base,
         # Weight conversion mapping
         "g": __gram_to_base,
         "kg": __kilogram_to_base,
         "mg": __miligram_to_base,
         "lb": __pound_to_base,#pound
         "oz": __ounce_to_base,#ounce
-        # Speed conversion mapping
         # Time conversion mappping
+        "s": __second_to_base,
+        "min": __minute_to_base,
+        "hr": __hour_to_base,
+        "day": __day_to_base,
+        # Speed conversion mapping
     },
     "from_base": {
         # Length conversion mapping
@@ -174,17 +205,21 @@ conversion_mapping_config = {
         "inch": __base_to_inche,
         "feet": __base_to_feet,
         # Temperature conversion mapping
-        "kelvin": __base_to_kelvin,
-        "celcius": __base_to_celsius,
-        "fahrenheit": __base_to_fahrenheit,
+        "k": __base_to_kelvin,
+        "c": __base_to_celsius,
+        "f": __base_to_fahrenheit,
         # Weight conversion mapping
         "g": __base_to_gram,
         "kg": __base_to_kilogram,
         "mg": __base_to_miligram,
         "lb": __base_to_pound,#pound
         "oz": __base_to_ounce,#ounce
-        # Speed conversion mapping
         # Time conversion mappping
+        "s": __base_to_second,
+        "min": __base_to_minute,
+        "hr": __base_to_hour,
+        "day": __base_to_day,
+        # Speed conversion mapping
     },
 }
 
