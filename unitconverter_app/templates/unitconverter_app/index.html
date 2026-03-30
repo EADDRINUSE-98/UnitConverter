@@ -101,12 +101,109 @@
             <div role="tabpanel"
                  aria-labelledby="tab-weight"
                  id="tab-panel-weight"
-                 hidden>weight content</div>
+                 hidden>
+                <form action="{% url 'unitconverter:result' %}"
+                      class="form"
+                      method="get"
+                      autocomplete="off">
+                    <div class="field">
+                        <label for="weight-num-input">Enter a number:</label>
+                        <input type="number" name="input-num" id="weight-num-input">
+                    </div>
+                    <div class="field">
+                        <label for="weight-convert-from-list">Select a unit to convert from:</label>
+                        <select name="convert-from" id="weight-convert-from-list">
+                            <option value="None">None</option>
+                            <option value="g">Gram</option>
+                            <option value="kg">KiloGram</option>
+                            <option value="mg">MiliGram</option>
+                            <option value="lb">Pound</option>
+                            <option value="oz">Ounce</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="weight-convert-to-list">Select a unit to convert to:</label>
+                        <select name="convert-to" id="weight-convert-to-list">
+                            <option value="None">None</option>
+                            <option value="g">Gram</option>
+                            <option value="kg">KiloGram</option>
+                            <option value="mg">MiliGram</option>
+                            <option value="lb">Pound</option>
+                            <option value="oz">Ounce</option>
+                        </select>
+                    </div>
+                    <button class="submit-button" type="submit">Submit</button>
+                </form>
+            </div>
             <div role="tabpanel"
                  aria-labelledby="tab-speed"
                  id="tab-panel-speed"
-                 hidden>speed content</div>
-            <div role="tabpanel" aria-labelledby="tab-time" id="tab-panel-time" hidden>time content</div>
+                 hidden>
+                <form action="{% url 'unitconverter:result' %}"
+                      class="form"
+                      method="get"
+                      autocomplete="off">
+                    <div class="field">
+                        <label for="speed-num-input">Enter a number:</label>
+                        <input type="number" name="input-num" id="speed-num-input">
+                    </div>
+                    <div class="field">
+                        <label for="speed-convert-from-list">Select a unit to convert from:</label>
+                        <select name="convert-from" id="speed-convert-from-list">
+                            <option value="None">None</option>
+                            <option value="mps">Meter/Sec</option>
+                            <option value="kmph">KiloMeter/Sec</option>
+                            <option value="mph">Miles/Hr</option>
+                            <option value="knots">Knots</option>
+                            <option value="mach">Mach</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="speed-convert-to-list">Select a unit to convert to:</label>
+                        <select name="convert-to" id="speed-convert-to-list">
+                            <option value="None">None</option>
+                            <option value="mps">Meter/Sec</option>
+                            <option value="kmph">KiloMeter/Sec</option>
+                            <option value="mph">Miles/Hr</option>
+                            <option value="knots">Knots</option>
+                            <option value="mach">Mach</option>
+                        </select>
+                    </div>
+                    <button class="submit-button" type="submit">Submit</button>
+                </form>
+            </div>
+            <div role="tabpanel" aria-labelledby="tab-time" id="tab-panel-time" hidden>
+                <form action="{% url 'unitconverter:result' %}"
+                      class="form"
+                      method="get"
+                      autocomplete="off">
+                    <div class="field">
+                        <label for="time-num-input">Enter a number:</label>
+                        <input type="number" name="input-num" id="time-num-input">
+                    </div>
+                    <div class="field">
+                        <label for="time-convert-from-list">Select a unit to convert from:</label>
+                        <select name="convert-from" id="time-convert-from-list">
+                            <option value="None">None</option>
+                            <option value="s">Second</option>
+                            <option value="min">Minute</option>
+                            <option value="hr">Hour</option>
+                            <option value="day">Day</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="time-convert-to-list">Select a unit to convert to:</label>
+                        <select name="convert-to" id="time-convert-to-list">
+                            <option value="None">None</option>
+                            <option value="s">Second</option>
+                            <option value="min">Minute</option>
+                            <option value="hr">Hour</option>
+                            <option value="day">Day</option>
+                        </select>
+                    </div>
+                    <button class="submit-button" type="submit">Submit</button>
+                </form>
+            </div>
         </div>
         <script src="{% static 'unitconverter_app/tabs.js' %}"></script>
     </body>

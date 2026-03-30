@@ -5,7 +5,7 @@ base_unit -> to_unit
 length base unit: meters
 temperature base unit: kelvin
 weight base unit: gram
-speed base unit: kmph
+speed base unit: mps
 time base unit: second
 """
 
@@ -89,24 +89,34 @@ def __fahrenheit_to_base(input_num):
         f"= (({input_num} - 32) * (5/9) + 273.15)°k",
     ]
 
+
 def __base_to_kelvin(value_in_base):
     return value_in_base, [f"= ({value_in_base} * 1)°k"]
 
+
 def __base_to_celsius(value_in_base):
-    return value_in_base - 273.15, [f"= ({value_in_base} * 1)°k", f"= ({value_in_base} - 273.15)°c"]
+    return value_in_base - 273.15, [
+        f"= ({value_in_base} * 1)°k",
+        f"= ({value_in_base} - 273.15)°c",
+    ]
+
 
 def __base_to_fahrenheit(value_in_base):
-    return value_in_base / 255.928, [f"= ({value_in_base} * 1)°k", f"= (({value_in_base} + 32) * (9/5) - 273.15)°f"]
+    return value_in_base / 255.928, [
+        f"= ({value_in_base} * 1)°k",
+        f"= (({value_in_base} + 32) * (9/5) - 273.15)°f",
+    ]
 
 
 # For Weight
+
 
 def __gram_to_base(input_num):
     return input_num, [f"= {input_num}g"]
 
 
 def __kilogram_to_base(input_num):
-    return input_num * 1000, [f"= {input_num}kg", [f"= ({input_num} * 1000)g"]]
+    return input_num * 1000, [f"= {input_num}kg", f"= ({input_num} * 1000)g"]
 
 
 def __miligram_to_base(input_num):
@@ -126,30 +136,45 @@ def __base_to_gram(value_in_base):
 
 
 def __base_to_kilogram(value_in_base):
-    return value_in_base / 1000, [f"= ({value_in_base} * 1)g", [f"= ({value_in_base} / 1000)kg"]]
+    return value_in_base / 1000, [
+        f"= ({value_in_base} * 1)g",
+        f"= ({value_in_base} / 1000)kg",
+    ]
 
 
 def __base_to_miligram(value_in_base):
-    return value_in_base * 1000, [f"= ({value_in_base} * 1)g", f"= ({value_in_base} * 1000)mg"]
+    return value_in_base * 1000, [
+        f"= ({value_in_base} * 1)g",
+        f"= ({value_in_base} * 1000)mg",
+    ]
 
 
 def __base_to_pound(value_in_base):
-    return value_in_base / 453.592, [f"= ({value_in_base} * 1)g", f"= ({value_in_base} / 453.592)lb"]
+    return value_in_base / 453.592, [
+        f"= ({value_in_base} * 1)g",
+        f"= ({value_in_base} / 453.592)lb",
+    ]
 
 
 def __base_to_ounce(value_in_base):
-    return value_in_base / 28.3495, [f"= ({value_in_base} * 1)g", f"= ({value_in_base} / 28.3495)oz"]
+    return value_in_base / 28.3495, [
+        f"= ({value_in_base} * 1)g",
+        f"= ({value_in_base} / 28.3495)oz",
+    ]
 
 
 # For Time
 def __second_to_base(input_num):
     return input_num, [f"= {input_num}s"]
 
+
 def __minute_to_base(input_num):
     return input_num * 60, [f"= {input_num}min", f"= ({input_num} * 60)s"]
 
+
 def __hour_to_base(input_num):
     return input_num * 3600, [f"= {input_num}hr", f"= ({input_num} * 3600)s"]
+
 
 def __day_to_base(input_num):
     return input_num * 86400, [f"= {input_num}day", f"= ({input_num} * 86400)s"]
@@ -158,14 +183,81 @@ def __day_to_base(input_num):
 def __base_to_second(value_in_base):
     return value_in_base, [f"= ({value_in_base} * 1)s"]
 
+
 def __base_to_minute(value_in_base):
-    return value_in_base / 60, [f"= ({value_in_base} * 1)s", f"= ({value_in_base} / 60)min"]
+    return value_in_base / 60, [
+        f"= ({value_in_base} * 1)s",
+        f"= ({value_in_base} / 60)min",
+    ]
+
 
 def __base_to_hour(value_in_base):
-    return value_in_base / 3600, [f"= ({value_in_base} * 1)s", f"= ({value_in_base} / 3600)hr"]
+    return value_in_base / 3600, [
+        f"= ({value_in_base} * 1)s",
+        f"= ({value_in_base} / 3600)hr",
+    ]
+
 
 def __base_to_day(value_in_base):
-    return value_in_base / 86400, [f"= ({value_in_base} * 1)s", f"= ({value_in_base} / 86400)day"]
+    return value_in_base / 86400, [
+        f"= ({value_in_base} * 1)s",
+        f"= ({value_in_base} / 86400)day",
+    ]
+
+
+# For Speed
+
+
+def __mps_to_base(input_num):
+    return input_num, [f"= {input_num}m/s"]
+
+
+def __kmph_to_base(input_num):
+    return input_num / 3.6, [f"= {input_num}kmph", f"= ({input_num} / 3.6)m/s"]
+
+
+def __mph_to_base(input_num):
+    return input_num / 2.237, [f"= {input_num}mph", f"= ({input_num} / 2.237)m/s"]
+
+
+def __knots_to_base(input_num):
+    return input_num / 1.944, [f"= {input_num}knot", f"= ({input_num} / 1.944)m/s"]
+
+
+def __mach_to_base(input_num):
+    return input_num * 343, [f"= Mach {input_num}", f"= ({input_num} * 343)m/s"]
+
+
+def __base_to_mps(value_in_base):
+    return value_in_base, [f"= ({value_in_base} * 1)m/s"]
+
+
+def __base_to_kmph(value_in_base):
+    return value_in_base * 3.6, [
+        f"= ({value_in_base} * 1)m/s",
+        f"= ({value_in_base} * 3.6)kmph",
+    ]
+
+
+def __base_to_mph(value_in_base):
+    return value_in_base * 2.237, [
+        f"= ({value_in_base} * 1)m/s",
+        f"= ({value_in_base} * 2.237)mph",
+    ]
+
+
+def __base_to_knot(value_in_base):
+    return value_in_base * 1.944, [
+        f"= ({value_in_base} * 1)m/s",
+        f"= ({value_in_base} * 1.944)knot",
+    ]
+
+
+def __base_to_mach(value_in_base):
+    return value_in_base / 343, [
+        f"= ({value_in_base} * 1)m/s",
+        f"= Mach ({value_in_base} / 343)",
+    ]
 
 
 """
@@ -188,14 +280,19 @@ conversion_mapping_config = {
         "g": __gram_to_base,
         "kg": __kilogram_to_base,
         "mg": __miligram_to_base,
-        "lb": __pound_to_base,#pound
-        "oz": __ounce_to_base,#ounce
+        "lb": __pound_to_base,  # pound
+        "oz": __ounce_to_base,  # ounce
         # Time conversion mappping
         "s": __second_to_base,
         "min": __minute_to_base,
         "hr": __hour_to_base,
         "day": __day_to_base,
         # Speed conversion mapping
+        "mps": __mps_to_base,
+        "kmph": __kmph_to_base,
+        "mph": __mph_to_base,
+        "knots": __knots_to_base,
+        "mach": __mach_to_base,
     },
     "from_base": {
         # Length conversion mapping
@@ -212,14 +309,19 @@ conversion_mapping_config = {
         "g": __base_to_gram,
         "kg": __base_to_kilogram,
         "mg": __base_to_miligram,
-        "lb": __base_to_pound,#pound
-        "oz": __base_to_ounce,#ounce
+        "lb": __base_to_pound,  # pound
+        "oz": __base_to_ounce,  # ounce
         # Time conversion mappping
         "s": __base_to_second,
         "min": __base_to_minute,
         "hr": __base_to_hour,
         "day": __base_to_day,
         # Speed conversion mapping
+        "mps": __base_to_mps,
+        "kmph": __base_to_kmph,
+        "mph": __base_to_mph,
+        "knots": __base_to_knot,
+        "mach": __base_to_mach,
     },
 }
 
@@ -236,7 +338,9 @@ def convert(from_unit, to_unit, input_num):
     converted_value, steps_of_conversion_2 = conversion_mapping_config.get(
         "from_base"
     ).get(to_unit)(float(value_in_base))
+
     steps_of_conversion = steps_of_conversion_1 + steps_of_conversion_2
+
     return float(f"{converted_value:.4f}"), steps_of_conversion
 
 
