@@ -84,7 +84,7 @@ def __celsius_to_base(input_num):
 
 
 def __fahrenheit_to_base(input_num):
-    return input_num * 255.928, [
+    return (input_num - 32) * (5 / 9) + 273.15, [
         f"= {input_num}°f",
         f"= (({input_num} - 32) * (5/9) + 273.15)°k",
     ]
@@ -102,9 +102,9 @@ def __base_to_celsius(value_in_base):
 
 
 def __base_to_fahrenheit(value_in_base):
-    return value_in_base / 255.928, [
+    return (value_in_base - 273.15) * (9 / 5) + 32, [
         f"= ({value_in_base} * 1)°k",
-        f"= (({value_in_base} + 32) * (9/5) - 273.15)°f",
+        f"= (({value_in_base} - 273.15) * (9/5) + 32)°f",
     ]
 
 
@@ -344,5 +344,5 @@ def convert(from_unit, to_unit, input_num):
     return float(f"{converted_value:.4f}"), steps_of_conversion
 
 
-if __name__ == "__main__":
-    print(convert("m", "km", 1000))
+# if __name__ == "__main__":
+#     print(convert("m", "km", 1000))
