@@ -80,28 +80,31 @@ if DATABASES_ENABLE is True:
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": ":memory:",
+        }
+    }
 
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
-AUTH_PASSWORD_ENABLE = False
-if AUTH_PASSWORD_ENABLE is True:
-    AUTH_PASSWORD_VALIDATORS = [
-        {
-            "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-        },
-        {
-            "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-        },
-        {
-            "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-        },
-        {
-            "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-        },
-    ]
-else:
-    AUTHENTICATION_BACKENDS = []
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
+]
 
 
 # Internationalization

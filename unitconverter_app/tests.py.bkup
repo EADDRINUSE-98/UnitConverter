@@ -1,0 +1,318 @@
+from django.test import TestCase, Client
+from django.urls import reverse
+from .logic.converter import convert
+
+
+# Create your tests here.
+class ConversionAppTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_index_page(self):
+        response = self.client.get(
+            reverse("unitconverter:index")
+        )  # reverse("named-url", kwargs={}, args=[])
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "unitconverter_app/index.html")
+
+    def test_result_page(self):
+        response = self.client.get(
+            reverse("unitconverter:result"),
+            {"input-num": 1000, "convert-from": "m", "convert-to": "km"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "unitconverter_app/result.html")
+
+    def test_length_conversion_form_submission(self):
+        response = self.client.get(
+            reverse("unitconverter:result"),
+            {"input-num": 1000, "convert-from": "m", "convert-to": "km"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "unitconverter_app/result.html")
+        self.assertAlmostEqual(response.context["converted_value"], 1)
+
+    def test_temperature_conversion_form_submission(self):
+        response = self.client.get(
+            reverse("unitconverter:result"),
+            {"input-num": 0, "convert-from": "c", "convert-to": "k"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "unitconverter_app/result.html")
+        self.assertEqual(response.context["converted_value"], 273.15)
+
+    def test_weight_conversion_form_submission(self):
+        response = self.client.get(
+            reverse("unitconverter:result"),
+            {"input-num": 1, "convert-from": "lb", "convert-to": "kg"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "unitconverter_app/result.html")
+        self.assertEqual(response.context["converted_value"], 0.4536)
+
+    def test_time_conversion_form_submission(self):
+        response = self.client.get(
+            reverse("unitconverter:result"),
+            {"input-num": 3600, "convert-from": "s", "convert-to": "hr"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "unitconverter_app/result.html")
+        self.assertEqual(response.context["converted_value"], 1)
+
+    def test_speed_conversion_form_submission(self):
+        response = self.client.get(
+            reverse("unitconverter:result"),
+            {"input-num": 1, "convert-from": "mps", "convert-to": "mph"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "unitconverter_app/result.html")
+        self.assertEqual(response.context["converted_value"], 2.237)
+
+
+#
+# class LengthConversionTests(TestCase):
+#     def test_m_to_km(self):
+#         result, _ = convert("m", "km", 1000)
+#         self.assertEqual(result, 1)
+#
+#     def test_km_to_m(self):
+#         result, _ = convert("km", "m", 1)
+#         self.assertEqual(result, 1000)
+#
+#     def test_m_to_cm(self):
+#         result, _ = convert("m", "cm", 1)
+#         self.assertEqual(result, 100)
+#
+#     def test_cm_to_m(self):
+#         result, _ = convert("cm", "m", 100)
+#         self.assertEqual(result, 1)
+#
+#     def test_m_to_inches(self):
+#         result, _ = convert("m", "inch", 1)
+#         self.assertAlmostEqual(result, 39.37, places=2)
+#
+#     def test_inches_to_m(self):
+#         result, _ = convert("inch", "m", 39.37)
+#         self.assertAlmostEqual(result, 1, places=2)
+#
+#     def test_m_to_feet(self):
+#         result, _ = convert("m", "feet", 1)
+#         self.assertAlmostEqual(result, 3.28084, places=2)
+#
+#     def test_feet_to_m(self):
+#         result, _ = convert("feet", "m", 3.28084)
+#         self.assertAlmostEqual(result, 1, places=2)
+
+
+class LengthConversionTests(TestCase):
+    def test_m_to_km(self):
+        result, _ = convert("m", "km", 1000)
+        self.assertEqual(result, 1.0)
+
+    def test_km_to_m(self):
+        result, _ = convert("km", "m", 1)
+        self.assertEqual(result, 1000.0)
+
+    def test_m_to_cm(self):
+        result, _ = convert("m", "cm", 1)
+        self.assertEqual(result, 100.0)
+
+    def test_cm_to_m(self):
+        result, _ = convert("cm", "m", 100)
+        self.assertEqual(result, 1.0)
+
+    def test_km_to_cm(self):
+        result, _ = convert("km", "cm", 1)
+        self.assertEqual(result, 100000.0)
+
+    def test_cm_to_km(self):
+        result, _ = convert("cm", "km", 100000)
+        self.assertEqual(result, 1.0)
+
+    def test_m_to_inch(self):
+        result, _ = convert("m", "inch", 1)
+        self.assertEqual(result, 39.37)  # rounded to 4 dp → 39.3700 → 39.37
+
+    def test_inch_to_m(self):
+        result, _ = convert("inch", "m", 39.37)
+        self.assertEqual(result, 1.0)
+
+    def test_m_to_feet(self):
+        result, _ = convert("m", "feet", 1)
+        self.assertEqual(result, 3.281)  # rounded
+
+    def test_feet_to_m(self):
+        result, _ = convert("feet", "m", 3.281)
+        self.assertEqual(result, 1.0)
+
+    def test_inch_to_feet(self):
+        result, _ = convert("inch", "feet", 12)
+        self.assertEqual(result, 1.0001)  # due to your constants (39.37 & 3.281)
+
+    def test_feet_to_inch(self):
+        result, _ = convert("feet", "inch", 1)
+        self.assertAlmostEqual(result, 12.0001, places=2)
+
+
+class TemperatureConversionTests(TestCase):
+    def test_c_to_f(self):
+        result, _ = convert("c", "f", 100)
+        self.assertAlmostEqual(result, 212, places=2)
+
+    def test_f_to_c(self):
+        result, _ = convert("f", "c", 212)
+        self.assertAlmostEqual(result, 100, places=2)
+
+    def test_c_to_k(self):
+        result, _ = convert("c", "k", 0)
+        self.assertAlmostEqual(result, 273.15, places=2)
+
+    def test_k_to_c(self):
+        result, _ = convert("k", "c", 273.15)
+        self.assertAlmostEqual(result, 0, places=2)
+
+    def test_f_to_k(self):
+        result, _ = convert("f", "k", 32)
+        self.assertAlmostEqual(result, 273.15, places=2)
+
+    def test_k_to_f(self):
+        result, _ = convert("k", "f", 273.15)
+        self.assertAlmostEqual(result, 32, places=2)
+
+
+class WeightConversionTests(TestCase):
+    def test_kg_to_g(self):
+        result, _ = convert("kg", "g", 1)
+        self.assertEqual(result, 1000)
+
+    def test_g_to_kg(self):
+        result, _ = convert("g", "kg", 1000)
+        self.assertEqual(result, 1)
+
+    def test_g_to_mg(self):
+        result, _ = convert("g", "mg", 1)
+        self.assertEqual(result, 1000)
+
+    def test_mg_to_g(self):
+        result, _ = convert("mg", "g", 1000)
+        self.assertEqual(result, 1)
+
+    def test_kg_to_mg(self):
+        result, _ = convert("kg", "mg", 1)
+        self.assertEqual(result, 1_000_000)
+
+    def test_lb_to_g(self):
+        result, _ = convert("lb", "g", 1)
+        self.assertAlmostEqual(result, 453.592, places=4)
+
+    def test_g_to_lb(self):
+        result, _ = convert("g", "lb", 453.592)
+        self.assertAlmostEqual(result, 1, places=4)
+
+    def test_lb_to_kg(self):
+        result, _ = convert("lb", "kg", 1)
+        self.assertAlmostEqual(result, 0.453592, places=4)
+
+    def test_kg_to_lb(self):
+        result, _ = convert("kg", "lb", 1)
+        self.assertAlmostEqual(result, 2.20462, places=4)
+
+    def test_oz_to_g(self):
+        result, _ = convert("oz", "g", 1)
+        self.assertAlmostEqual(result, 28.3495, places=4)
+
+    def test_g_to_oz(self):
+        result, _ = convert("g", "oz", 28.3495)
+        self.assertAlmostEqual(result, 1, places=4)
+
+    def test_lb_to_oz(self):
+        result, _ = convert("lb", "oz", 1)
+        self.assertEqual(result, 16)
+
+    def test_oz_to_lb(self):
+        result, _ = convert("oz", "lb", 16)
+        self.assertEqual(result, 1)
+
+
+class TimeConversionTests(TestCase):
+    def test_seconds_to_minutes(self):
+        result, _ = convert("s", "min", 60)
+        self.assertEqual(result, 1)
+
+    def test_minutes_to_seconds(self):
+        result, _ = convert("min", "s", 1)
+        self.assertEqual(result, 60)
+
+    def test_minutes_to_hours(self):
+        result, _ = convert("min", "hr", 60)
+        self.assertEqual(result, 1)
+
+    def test_hours_to_minutes(self):
+        result, _ = convert("hr", "min", 1)
+        self.assertEqual(result, 60)
+
+    def test_hours_to_seconds(self):
+        result, _ = convert("hr", "s", 1)
+        self.assertEqual(result, 3600)
+
+    def test_seconds_to_hours(self):
+        result, _ = convert("s", "hr", 3600)
+        self.assertEqual(result, 1)
+
+    def test_days_to_hours(self):
+        result, _ = convert("day", "hr", 1)
+        self.assertEqual(result, 24)
+
+    def test_hours_to_days(self):
+        result, _ = convert("hr", "day", 24)
+        self.assertEqual(result, 1)
+
+    def test_days_to_seconds(self):
+        result, _ = convert("day", "s", 1)
+        self.assertEqual(result, 86400)
+
+    def test_seconds_to_days(self):
+        result, _ = convert("s", "day", 86400)
+        self.assertEqual(result, 1)
+
+
+class SpeedConversionTests(TestCase):
+    def test_mps_to_kmph(self):
+        result, _ = convert("mps", "kmph", 1)
+        self.assertAlmostEqual(result, 3.6, places=4)
+
+    def test_kmph_to_mps(self):
+        result, _ = convert("kmph", "mps", 3.6)
+        self.assertAlmostEqual(result, 1, places=4)
+
+    def test_mps_to_mph(self):
+        result, _ = convert("mps", "mph", 1)
+        self.assertAlmostEqual(result, 2.23694, places=3)
+
+    def test_mph_to_mps(self):
+        result, _ = convert("mph", "mps", 2.23694)
+        self.assertAlmostEqual(result, 1, places=4)
+
+    def test_kmph_to_mph(self):
+        result, _ = convert("kmph", "mph", 1)
+        self.assertAlmostEqual(result, 0.621371, places=4)
+
+    def test_mph_to_kmph(self):
+        result, _ = convert("mph", "kmph", 1)
+        self.assertAlmostEqual(result, 1.60934, places=4)
+
+    def test_mps_to_knots(self):
+        result, _ = convert("mps", "knots", 1)
+        self.assertAlmostEqual(result, 1.94384, places=3)
+
+    def test_knots_to_mps(self):
+        result, _ = convert("knots", "mps", 1.94384)
+        self.assertAlmostEqual(result, 1, places=3)
+
+    def test_mps_to_mach(self):
+        result, _ = convert("mps", "mach", 343)
+        self.assertAlmostEqual(result, 1, places=4)
+
+    def test_mach_to_mps(self):
+        result, _ = convert("mach", "mps", 1)
+        self.assertAlmostEqual(result, 343, places=4)

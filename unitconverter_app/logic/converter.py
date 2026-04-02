@@ -267,61 +267,81 @@ Mapping section
 conversion_mapping_config = {
     "to_base": {
         # Length conversion mapping
-        "m": __meter_to_base,
-        "km": __kilometer_to_base,
-        "cm": __centimeter_to_base,
-        "inch": __inch_to_base,
-        "feet": __feet_to_base,
+        "length": {
+            "m": __meter_to_base,
+            "km": __kilometer_to_base,
+            "cm": __centimeter_to_base,
+            "inch": __inch_to_base,
+            "feet": __feet_to_base,
+        },
         # Temperature conversion mapping
-        "k": __kelvin_to_base,
-        "c": __celsius_to_base,
-        "f": __fahrenheit_to_base,
+        "temperature": {
+            "k": __kelvin_to_base,
+            "c": __celsius_to_base,
+            "f": __fahrenheit_to_base,
+        },
         # Weight conversion mapping
-        "g": __gram_to_base,
-        "kg": __kilogram_to_base,
-        "mg": __miligram_to_base,
-        "lb": __pound_to_base,  # pound
-        "oz": __ounce_to_base,  # ounce
+        "weight": {
+            "g": __gram_to_base,
+            "kg": __kilogram_to_base,
+            "mg": __miligram_to_base,
+            "lb": __pound_to_base,
+            "oz": __ounce_to_base,
+        },
         # Time conversion mappping
-        "s": __second_to_base,
-        "min": __minute_to_base,
-        "hr": __hour_to_base,
-        "day": __day_to_base,
+        "time": {
+            "s": __second_to_base,
+            "min": __minute_to_base,
+            "hr": __hour_to_base,
+            "day": __day_to_base,
+        },
         # Speed conversion mapping
-        "mps": __mps_to_base,
-        "kmph": __kmph_to_base,
-        "mph": __mph_to_base,
-        "knots": __knots_to_base,
-        "mach": __mach_to_base,
+        "speed": {
+            "mps": __mps_to_base,
+            "kmph": __kmph_to_base,
+            "mph": __mph_to_base,
+            "knots": __knots_to_base,
+            "mach": __mach_to_base,
+        },
     },
     "from_base": {
         # Length conversion mapping
-        "m": __base_to_meter,
-        "km": __base_to_kilometer,
-        "cm": __base_to_centimeter,
-        "inch": __base_to_inche,
-        "feet": __base_to_feet,
+        "length": {
+            "m": __base_to_meter,
+            "km": __base_to_kilometer,
+            "cm": __base_to_centimeter,
+            "inch": __base_to_inche,
+            "feet": __base_to_feet,
+        },
         # Temperature conversion mapping
-        "k": __base_to_kelvin,
-        "c": __base_to_celsius,
-        "f": __base_to_fahrenheit,
+        "temperature": {
+            "k": __base_to_kelvin,
+            "c": __base_to_celsius,
+            "f": __base_to_fahrenheit,
+        },
         # Weight conversion mapping
-        "g": __base_to_gram,
-        "kg": __base_to_kilogram,
-        "mg": __base_to_miligram,
-        "lb": __base_to_pound,  # pound
-        "oz": __base_to_ounce,  # ounce
+        "weight": {
+            "g": __base_to_gram,
+            "kg": __base_to_kilogram,
+            "mg": __base_to_miligram,
+            "lb": __base_to_pound,
+            "oz": __base_to_ounce,
+        },
         # Time conversion mappping
-        "s": __base_to_second,
-        "min": __base_to_minute,
-        "hr": __base_to_hour,
-        "day": __base_to_day,
+        "time": {
+            "s": __base_to_second,
+            "min": __base_to_minute,
+            "hr": __base_to_hour,
+            "day": __base_to_day,
+        },
         # Speed conversion mapping
-        "mps": __base_to_mps,
-        "kmph": __base_to_kmph,
-        "mph": __base_to_mph,
-        "knots": __base_to_knot,
-        "mach": __base_to_mach,
+        "speed": {
+            "mps": __base_to_mps,
+            "kmph": __base_to_kmph,
+            "mph": __base_to_mph,
+            "knots": __base_to_knot,
+            "mach": __base_to_mach,
+        },
     },
 }
 
@@ -330,14 +350,26 @@ Public function
 """
 
 
-def convert(from_unit, to_unit, input_num):
-    value_in_base, steps_of_conversion_1 = conversion_mapping_config.get("to_base").get(
-        from_unit
-    )(float(input_num))
+def convert(from_unit, to_unit, input_num, conversion_type):
+    # def convert(from_unit, to_unit, input_num):
+    if (
+        not isinstance(from_unit, str)
+        and not isinstance(to_unit, str)
+        and (not isinstance(input_num, int) or not isinstance(input_num, float))
+    ):
+        raise ValueError
 
-    converted_value, steps_of_conversion_2 = conversion_mapping_config.get(
-        "from_base"
-    ).get(to_unit)(float(value_in_base))
+    value_in_base, steps_of_conversion_1 = (
+        conversion_mapping_config.get("to_base")
+        .get(conversion_type)
+        .get(from_unit)(float(input_num))
+    )
+
+    converted_value, steps_of_conversion_2 = (
+        conversion_mapping_config.get("from_base")
+        .get(conversion_type)
+        .get(to_unit)(float(value_in_base))
+    )
 
     steps_of_conversion = steps_of_conversion_1 + steps_of_conversion_2
 
