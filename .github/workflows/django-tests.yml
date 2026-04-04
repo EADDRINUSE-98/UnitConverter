@@ -1,0 +1,39 @@
+---
+# Name of the workflow
+name: "Django Test"
+description: "Running django tests on every push to development branch."
+author: "Priyanshu Singh"
+
+# Every Github workflow .yml file has these baseline structure:
+# 1. When to run the workflow. (Events)
+# 2. Where to run it. (Environment to use)
+# 3. What it does. (Commands to run)
+
+# 1. When to run the workflow. (Events)
+on:
+  push:
+    branches: ["development"]
+# 2. Where to run it. (Environment to use)
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    # 3. What it does. (Commands to run)
+    steps:
+      # Pulls the project in the runner VM.
+      - name: "Pull the project"
+        uses: actions/checkout@v6
+        # with:
+        #   ref: development
+      # Setup Python environment
+      - name: "Setup Python environment"
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+      # Installing dependencies for Python venv
+      - name: "Installing project dependencies"
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      # Running django tests
+      - name: "Run django tests"
+        run: python manage.py test
