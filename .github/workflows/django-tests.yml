@@ -2,7 +2,6 @@
 # Name of the workflow
 name: "Django Test"
 description: "Running django tests on every push to development branch."
-author: "Priyanshu Singh"
 
 # Every Github workflow .yml file has these baseline structure:
 # 1. When to run the workflow. (Events)
@@ -22,8 +21,6 @@ jobs:
       # Pulls the project in the runner VM.
       - name: "Pull the project"
         uses: actions/checkout@v6
-        # with:
-        #   ref: development
       # Setup Python environment
       - name: "Setup Python environment"
         uses: actions/setup-python@v6
