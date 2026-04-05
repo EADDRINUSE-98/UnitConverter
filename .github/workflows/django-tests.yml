@@ -3,7 +3,7 @@
 name: "Django Test"
 description: "Running django tests on every push to development branch."
 
-# Every Github workflow .yml file has these baseline structure:
+# Every Github workflow .yml file has this baseline structure:
 # 1. When to run the workflow. (Events)
 # 2. Where to run it. (Environment to use)
 # 3. What it does. (Commands to run)
@@ -12,9 +12,11 @@ description: "Running django tests on every push to development branch."
 on:
   push:
     branches: ["development"]
-# 2. Where to run it. (Environment to use)
+
+# "jobs" can contain one or more jobs that can run sequentially or in parallel
 jobs:
   test:
+    # 2. Where to run it. (Environment to use)
     runs-on: ubuntu-latest
     # 3. What it does. (Commands to run)
     steps:
