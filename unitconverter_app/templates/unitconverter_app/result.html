@@ -9,22 +9,25 @@
               rel="stylesheet">
     </head>
     <body>
+        <div class="heading">
+            <h1>Result</h1>
+        </div>
         <div id="result-section">
-            <h1>Result:</h1>
             <div id="result-snippet">
-                <code>{{ input_num }} {{ from_unit }} = {{ converted_value }} {{ to_unit }}</code>
+                <code>{{ input_num }}{{ from_unit }} = {{ converted_value }}{{ to_unit }}</code>
             </div>
         </div>
+        <div class="heading">
+            <h1>Steps of Conversion</h1>
+        </div>
         <div id="solution-section">
-            <h1>Steps of conversion:</h1>
             <div id="solution-snippet">
                 <code id="steps-code">
                     {% for step in steps_of_conversion %}
-                        <!-- <pr>{{ step }}</pr> -->
                         {{ step }}
                         <br>
                     {% endfor %}
-                    {{ input_num }} {{ from_unit }} = {{ converted_value }} {{ to_unit }}
+                    {{ input_num }}{{ from_unit }} = {{ converted_value }}{{ to_unit }}
                 </code>
             </div>
         </div>

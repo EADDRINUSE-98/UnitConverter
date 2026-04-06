@@ -7,6 +7,13 @@ body {
   /* font-size: 1000rem; */
 }
 
+.heading {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+  font-size: 2.5rem;
+}
+
 div[role="tablist"] {
   /* this applies to all the div elements with "role" attribute set to "tablist". */
   display: flex;

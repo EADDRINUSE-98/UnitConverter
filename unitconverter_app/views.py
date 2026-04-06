@@ -26,6 +26,9 @@ def result(request):
         )
         context["converted_value"] = converted_value
         context["steps_of_conversion"] = steps_of_conversion
+        if context["conversion_type"] == "temperature":
+            context["from_unit"] = f"°{context['from_unit']}"
+            context["to_unit"] = f"°{context['to_unit']}"
 
     except Exception as e:
         return HttpResponseBadRequest(f"{e}:Invalid input or unit supplied.")
