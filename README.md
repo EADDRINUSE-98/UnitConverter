@@ -7,4 +7,4 @@ This web app utilizes django as the backend technology and html, css, and javasc
 3. Shows steps of conversion.
 4. 5 different conversion types.
 # Demo
-[![Demo](demo_vid/unitconverter-demo.gif)](https://github.com/EADDRINUSE-98/UnitConverter/blob/main/demo_vid/unitconverter-demo.mp4)
+![Demo](https://github.com/EADDRINUSE-98/UnitConverter/blob/main/demo_vid/unitconverter-demo.gif)
